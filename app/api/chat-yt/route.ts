@@ -23,11 +23,19 @@ export async function POST(req: Request) {
 
   // ## FEED transcript and title to OpenAI API
   // Create a completion using OpenAIApi
-  let prompt2 = `Write a one paragraph summary of the following youtube video transcript. Generate Questions and Answers for the video.
+  let prompt2 = `Write a one paragraph summary of the following youtube video transcript. 
+  Generate Questions and Answers for the video.
     Title : ${title}
     Transcript : 
     ${transcript}
 
+    Summary:
+    `;
+  let prompt3 = `Write a 3 point summary of the youtube video transcript below, use '-' to list the points.:  
+  Title : ${title}
+    Transcript :
+    ${transcript}
+    
     Summary:
     `;
   // Ask OpenAI for a streaming chat completion given the prompt
@@ -36,7 +44,7 @@ export async function POST(req: Request) {
     stream: true,
     messages: [
       { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: prompt2 },
+      { role: "user", content: prompt3 },
     ],
   });
 
